@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Письмо Веронике</title>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+      background: linear-gradient(-45deg, #ff6b6b, #ff8e53, #c084fc, #4b0082);
+      background-size: 400% 400%;
+      animation: gradient 20s ease infinite;
+      position: relative;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .container {
+      width: 90vw;
+      max-width: 390px; /* Под iPhone 13 */
+      margin: 0 auto;
+      padding: 15px;
+    }
+    .content {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      text-align: center;
+    }
+    .letter-text {
+      font-size: 0.9rem;
+      color: #4b5563;
+      line-height: 1.5;
+      margin-top: 15px;
+      min-height: 200px;
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out forwards;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .letter-btn {
+      background: #ff69b4;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: background 0.3s;
+      margin: 10px 5px;
+      display: inline-block;
+    }
+    .letter-btn:hover {
+      background: #ff4d94;
+    }
+    .heart-btn {
+      background: #ff69b4;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+    .heart-btn:hover {
+      background: #ff4d94;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="content">
+      <h1 class="text-2xl font-bold text-pink-600 mb-3">Письмо</h1>
+      <p class="text-base mb-4 text-center">Никусь, не передать словами как я тебя люблю, поэтому попробую письмом 💖</p>
+      <div id="letter-text" class="letter-text"></div>
+      <button class="heart-btn" onclick="launchHearts()">Запустить сердечки! 💖</button>
+      <div class="mt-4">
+
+        <a href="galary.html" class="letter-btn">К воспоминаниям</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const letterContent = "Моя любовь, каждый день с тобой становится незабываемым. Твоя улыбка — мой свет, а твои мечты — мои цели.Я хочу делать твой каждый день особенным, а сегодняшний - самым лучшим за все время. Люблю тебя бесконечно!💕 Переходи к галерее воспоминаний ";
+    
+    function typeLetter() {
+      const letterText = document.getElementById('letter-text');
+      let index = 0;
+      letterText.textContent = '';
+      letterText.style.opacity = 1; // Показываем текст сразу
+      const typing = setInterval(() => {
+        if (index < letterContent.length) {
+          letterText.textContent += letterContent[index];
+          index++;
+        } else {
+          clearInterval(typing);
+        }
+      }, 50); // Скорость печати
+    }
+
+    function launchHearts() {
+      confetti({
+        particleCount: 60,
+        spread: 80,
+        shapes: ['heart'],
+        colors: ['#ff69b4', '#ff1493', '#c084fc'],
+        origin: { y: 0.3 },
+        disableForReducedMotion: true
+      });
+      setTimeout(() => {
+        confetti.reset();
+      }, 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      typeLetter();
+      launchHearts(); // Сердечки при загрузке
+    });
+  </script>
+</body>
+</html>
